@@ -4,8 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskManager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 </head>
 <body>
-    <h1>Hello, World!</h1>
+    <h1>Список задач:</h1>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th>Название</th><th>Категория</th><th>Приоритет</th><th>Статус</th></tr></thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td><a href="{{ url_for('detail', task_id=task.id )}}">{{ task.title }}</a></td>
+                    <td>{{ task.category_name }}</td>
+                    <td>{{ task.priority_name }}</td>
+                    <td>{{ task.status_name }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ task.title }}</title>
+</head>
+<body>
+    <h1>{{ task.title }}</h1>
+    <div>
+        <p>Категория: {{ task.category_name }}</p>
+        <p>Приоритет: {{ task.priority_name }}</p>
+        <p>Статус: {{ task.status_name }}</p>
+        <h2>Описание: </h2>
+        <p class="description">{{ task.description }}</p>
+    </div>
+</body>
+</html>
