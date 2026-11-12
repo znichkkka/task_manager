@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>500 – Ошибка сервера</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>500 – Ошибка сервера</h1>
+  <p>Не удалось выполнить запрос. Попробуйте еще раз позже.</p>
+  <p><a href="{{ url_for('index') }}">К списку задач</a></p>
+</body>
+</html>

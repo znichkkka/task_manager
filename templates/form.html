@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ heading }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Новая задача</h1>
+  <p><a href="{{ url_for('index') }}">К списку задач</a></p>
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  <form method="post">
+    <p>
+      <label for="title">Название</label><br>
+      <input id="title" name="title" value="{{ task.title }}" required>
+    </p>
+    <p>
+      <label for="description">Описание</label><br>
+      <textarea id="description" name="description" rows="5">{{ task.description }}</textarea>
+    </p>
+    <p>
+      <label for="category_id">Категория</label><br>
+      <select id="category_id" name="category_id" required>
+        <option value="">Выберите категорию</option>
+        {% for category in categories %}
+          <option value="{{ category.id }}" {% if task.category_id == category.id|string %}selected{% endif %}>{{ category.name }}</option>
+        {% endfor %}
+      </select>
+    </p>
+    <p>
+      <label for="priority_id">Приоритет</label><br>
+      <select id="priority_id" name="priority_id" required>
+        <option value="">Выберите приоритет</option>
+        {% for priority in priorities %}
+          <option value="{{ priority.id }}" {% if task.priority_id == priority.id|string %}selected{% endif %}>{{ priority.name }}</option>
+        {% endfor %}
+      </select>
+    </p>
+    <p>
+      <label for="status_id">Статус</label><br>
+      <select id="status_id" name="status_id" required>
+        <option value="">Выберите статус</option>
+        {% for status in statuses %}
+          <option value="{{ status.id }}" {% if task.status_id == status.id|string %}selected{% endif %}>{{ status.name }}</option>
+        {% endfor %}
+      </select>
+    </p>
+    <button type="submit">Сохранить</button>
+  </form>
+</body>
+</html>
