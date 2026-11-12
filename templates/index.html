@@ -8,14 +8,14 @@
 </head>
 <body>
     <h1>Список задач:</h1>
-    <p><a href="{{ url_for('create') }}">Создать задачу</a></p>
+    <p><a href="{{ url_for('tasks_bp.create') }}">Создать задачу</a></p>
     <div class="table-wrapper">
         <table>
             <thead><tr><th>Название</th><th>Категория</th><th>Приоритет</th><th>Статус</th></tr></thead>
             <tbody>
                 {% for task in tasks %}
                 <tr>
-                    <td><a href="{{ url_for('detail', task_id=task.id )}}">{{ task.title }}</a></td>
+                    <td><a href="{{ url_for('tasks_bp.detail', task_id=task.id )}}">{{ task.title }}</a></td>
                     <td>{{ task.category_name }}</td>
                     <td>{{ task.priority_name }}</td>
                     <td>{{ task.status_name }}</td>
