@@ -1,6 +1,11 @@
-from db import get_connection
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from models.base import get_engine
+from models.models import Category
 
 
 def list_categories() -> list[dict]:
-    with get_connection() as connection:
-        return connection.execute('select id, name from categories order by id').fetchall()
+    with Session(get_engine()) as session:
+        categories = session.scalars(select(Category).order_by(Category.name))
+        return [{"id": category.id, "name": category.name} for category in categories]

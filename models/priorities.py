@@ -1,6 +1,14 @@
-from db import get_connection
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from models.base import get_engine
+from models.models import Priority
 
 
 def list_priorities() -> list[dict]:
-    with get_connection() as connection:
-        return connection.execute('select id, code, name from priorities order by id').fetchall()
+    with Session(get_engine()) as session:
+        priorities = session.scalars(select(Priority).order_by(Priority.name))
+        return [
+            {"id": priority.id, "code": priority.code, "name": priority.name}
+            for priority in priorities
+        ]
