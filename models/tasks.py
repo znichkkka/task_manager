@@ -29,8 +29,10 @@ def _task_to_dict(task: Task) -> dict:
 
 def list_tasks(category_id: str = "") -> list[dict]:
     query = _task_query().order_by(Task.id.desc())
+
     if category_id:
         query = query.where(Task.category_id == int(category_id))
+
     with Session(get_engine()) as session:
         return [_task_to_dict(task) for task in session.scalars(query)]
 
@@ -39,6 +41,7 @@ def get_task(task_id: int) -> dict | None:
     with Session(get_engine()) as session:
         task = session.scalar(_task_query().where(Task.id == task_id))
         return _task_to_dict(task) if task is not None else None
+
 
 def create_task(task: dict) -> int:
     with Session(get_engine()) as session, session.begin():
@@ -55,8 +58,20 @@ def create_task(task: dict) -> int:
 
 
 def update_task(task_id: int, task: dict) -> None:
-    """Homework"""
+    with Session(get_engine()) as session, session.begin():
+        task_for_edit = session.get(Task, task_id)
+
+        if task_for_edit is not None:
+            task_for_edit.title = task["title"]
+            task_for_edit.description = task["description"]
+            task_for_edit.category_id = int(task["category_id"])
+            task_for_edit.priority_id=int(task["priority_id"])
+            task_for_edit.status_id=int(task["status_id"])
 
 
 def delete_task(task_id: int) -> None:
-    """Homework"""
+    with Session(get_engine()) as session, session.begin():
+        task = session.get(Task, task_id)
+
+        if task is not None:
+            session.delete(task)
